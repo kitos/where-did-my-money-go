@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply m-0 min-h-screen bg-paper text-ink antialiased;
+    background:
+      radial-gradient(circle at 5% 0%, rgba(201, 111, 59, 0.22), transparent 26rem),
+      radial-gradient(circle at 88% 8%, rgba(47, 125, 74, 0.16), transparent 24rem),
+      linear-gradient(180deg, #fffaf1 0%, #f6f2ea 100%);
+  }
+
+  button,
+  select {
+    font: inherit;
+  }
+}
+
+@layer components {
+  .panel-card {
+    @apply rounded-3xl border border-line/90 bg-parchment/90 shadow-panel backdrop-blur;
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.18em] text-muted;
+  }
+
+  .control {
+    @apply rounded-2xl border border-line bg-parchment px-4 py-2.5 text-ink shadow-sm outline-none transition focus:border-clay focus:ring-4 focus:ring-clay/15;
+  }
+
+  .transaction-table {
+    @apply w-full border-collapse font-sans text-sm;
+  }
+
+  .transaction-table th {
+    @apply border-b border-line px-2 py-2 text-left text-[0.68rem] font-bold uppercase tracking-[0.14em] text-muted;
+  }
+
+  .transaction-table td {
+    @apply border-b border-line/80 px-2 py-2 align-top;
+  }
+
+  .transaction-table .amount {
+    @apply whitespace-nowrap text-right;
+  }
+}
