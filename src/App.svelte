@@ -114,7 +114,7 @@
   <header class="grid gap-5 lg:grid-cols-[1fr_auto] lg:items-end">
     <div>
       <p class="eyebrow mb-3">Personal cash map</p>
-      <h1 class="font-display text-5xl tracking-[-0.05em] text-ink sm:text-6xl">Money Flow</h1>
+      <h1 class="font-display text-5xl tracking-[-0.05em] text-ink sm:text-6xl">Where Did My Money Go?</h1>
       <p class="mt-3 max-w-2xl text-lg text-muted">
         Drop a transaction CSV to build a local, browser-only Sankey flow with collapsible categories and transaction details.
       </p>
