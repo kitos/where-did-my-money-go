@@ -1,6 +1,7 @@
 <script>
   import FlowChart from "./components/FlowChart.svelte";
   import DailyHeatmap from "./components/DailyHeatmap.svelte";
+  import CashTrend from "./components/CashTrend.svelte";
   import { parseTransactionCsv } from "./dataPrep";
   import { buildFlowGraph } from "./flow/buildFlowGraph";
   import {
@@ -189,6 +190,10 @@
   {#if loadError}
     <section class="panel-card p-8 text-clay">{loadError}</section>
   {:else if hasTransactions}
+    <section class="panel-card p-4 sm:p-5">
+      <CashTrend transactions={visibleTransactions} {startDate} {endDate} />
+    </section>
+
     <section class="panel-card p-4 sm:p-5">
       <FlowChart graph={flowGraph} />
     </section>
