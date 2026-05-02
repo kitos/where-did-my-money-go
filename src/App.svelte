@@ -1,5 +1,6 @@
 <script>
   import FlowChart from "./components/FlowChart.svelte";
+  import DailyHeatmap from "./components/DailyHeatmap.svelte";
   import { parseTransactionCsv } from "./dataPrep";
   import { buildFlowGraph } from "./flow/buildFlowGraph";
   import {
@@ -15,7 +16,6 @@
   let uploadStatus = "";
   let isDragging = false;
   let isParsing = false;
-  let showPercentages = false;
 
   $: dataset = $transactionDataset;
   $: dateRange = $transactionDateRange;
@@ -116,7 +116,7 @@
       <p class="eyebrow mb-3">Personal cash map</p>
       <h1 class="font-display text-5xl tracking-[-0.05em] text-ink sm:text-6xl">Where Did My Money Go?</h1>
       <p class="mt-3 max-w-2xl text-lg text-muted">
-        Drop a transaction CSV to build a local, browser-only Sankey flow with collapsible categories and transaction details.
+        Drop a transaction CSV to get local, browser-only insights into your financial behavior, spending rhythm, and cash flow.
       </p>
     </div>
 
@@ -148,11 +148,6 @@
         <button class="rounded-2xl border border-line bg-white/70 px-3 py-2 text-sm font-bold text-ink disabled:opacity-40" disabled={!hasTransactions} onclick={() => applyShortcut("last-month")}>Last month</button>
         <button class="rounded-2xl border border-line bg-white/70 px-3 py-2 text-sm font-bold text-ink disabled:opacity-40" disabled={!hasTransactions} onclick={() => applyShortcut("all")}>All data</button>
       </div>
-
-      <label class="flex cursor-pointer select-none items-center gap-2 rounded-2xl border border-line bg-parchment px-4 py-2.5 text-sm font-semibold text-ink shadow-sm">
-        <input class="h-4 w-4 accent-clay" type="checkbox" bind:checked={showPercentages} />
-        Percentages
-      </label>
     </div>
   </header>
 
@@ -173,7 +168,7 @@
       <div>
         <p class="eyebrow">Local CSV import</p>
         <p class="mt-1 text-sm text-muted">
-          Drag and drop a transaction export CSV here. It is parsed in this browser into app transactions and adapter-defined categories; nothing is uploaded.
+          Drag and drop a transaction export CSV here. It stays in this browser and is not uploaded to a server.
         </p>
         {#if uploadStatus}
           <p class="mt-2 text-sm font-semibold text-ink">{uploadStatus}</p>
@@ -195,21 +190,11 @@
     <section class="panel-card p-8 text-clay">{loadError}</section>
   {:else if hasTransactions}
     <section class="panel-card p-4 sm:p-5">
-      <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <p class="eyebrow">Rules and assumptions</p>
-          <ul class="mt-2 flex flex-wrap gap-2 text-sm text-muted">
-            {#each dataset.notes as note}
-              <li class="rounded-full border border-line bg-white/60 px-3 py-1">{note}</li>
-            {/each}
-          </ul>
-        </div>
-      </div>
+      <FlowChart graph={flowGraph} />
+    </section>
 
-      <FlowChart
-        graph={flowGraph}
-        {showPercentages}
-      />
+    <section class="panel-card p-4 sm:p-5">
+      <DailyHeatmap transactions={visibleTransactions} {startDate} {endDate} />
     </section>
   {:else}
     <section class="panel-card p-10 text-center">

@@ -3,9 +3,9 @@
   import { sankey, sankeyLinkHorizontal } from "d3-sankey";
 
   export let graph = { nodes: [], edges: [], roots: [], totals: { incoming: 0, outflow: 0, retained: 0 } };
-  export let showPercentages = false;
 
   let chartEl;
+  let showPercentages = false;
   let expandedNodes = new Set();
   let activeNodeId = null;
   let panel = {
@@ -254,6 +254,18 @@
     if (panelNode) setPanel(panelNode.label, panelNode.value, panelNode.transactions || []);
   }
 </script>
+
+<div class="mb-4 flex flex-wrap items-start justify-between gap-3">
+  <div>
+    <p class="eyebrow">Money flow</p>
+    <h2 class="mt-1 text-2xl font-bold tracking-[-0.03em] text-ink">Where the money moves</h2>
+  </div>
+
+  <label class="flex cursor-pointer select-none items-center gap-2 rounded-2xl border border-line bg-white/70 px-4 py-2.5 text-sm font-semibold text-ink shadow-sm">
+    <input class="h-4 w-4 accent-clay" type="checkbox" bind:checked={showPercentages} />
+    Percentages
+  </label>
+</div>
 
 <div class="grid min-h-[580px] gap-4 xl:grid-cols-[minmax(0,1.55fr)_minmax(340px,0.75fr)]">
   <div class="overflow-hidden rounded-3xl border border-line bg-white/50 p-2">
